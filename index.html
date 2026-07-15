@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&family=Kalam:wght@300&display=swap" rel="stylesheet" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23C45538'/><text y='.88em' x='50%25' text-anchor='middle' font-size='74' font-family='Poppins,sans-serif' font-weight='600' fill='%23FDF9F0'>k</text></svg>" />
 <style>
 /* Palete un fonti nolasīti no Katrīnas Instagram ierakstiem */
@@ -31,7 +31,10 @@
 
   --displejs: 'Poppins', system-ui, sans-serif;
   --teksts:   'Inter', system-ui, sans-serif;
-  --roka:     'Caveat', cursive;
+  /* Kalam: pārbaudīts, ka fontā tiešām ir ā ē ī ū ķ ļ ņ ģ š ž č.
+     NELIETOT: Caveat (salauzts ī), Nothing You Could Do, Handlee, Delius,
+     Neucha (nav latin-ext), Shadows Into Light (trūkst ģ). */
+  --roka:     'Kalam', cursive;
 
   --mala: clamp(20px, 5vw, 60px);
   --sekcija: clamp(68px, 9vw, 130px);
@@ -58,7 +61,7 @@ h2{
 }
 h3{font-family:var(--displejs); font-weight:600; font-size:1.12rem; letter-spacing:-.01em}
 p{max-width:64ch}
-.piezime{font-family:var(--roka); font-size:1.4rem; color:var(--oranzs); line-height:1.25}
+.piezime{font-family:var(--roka); font-weight:300; font-size:1.25rem; color:var(--oranzs); line-height:1.35}
 
 /* Vietturis satura vietām, kuras vēl jāaizpilda */
 .vietturis{
@@ -148,17 +151,52 @@ p{max-width:64ch}
 .flize--salvija{background:var(--salvija); color:var(--tinte)}
 .flize--salvija .flize__pal{color:#5C6B47}
 
-/* Pakalpojumi */
+/* Pakalpojumi: karuselis, tāpat kā Katrīnas ierakstos pāršķir slaidus */
 .sekcija{padding-block:var(--sekcija)}
-.kartis{display:grid; gap:18px; margin-top:clamp(24px,3vw,40px)}
-@media(min-width:820px){ .kartis{grid-template-columns:repeat(2,1fr)} }
-.karte{
-  border:1px solid var(--lin); border-radius:16px;
-  padding:clamp(24px,2.6vw,34px); background:var(--krems);
-  display:flex; flex-direction:column; gap:11px;
+.karuselis{
+  margin-top:clamp(28px,3.4vw,48px);
+  display:grid; gap:clamp(22px,3vw,40px);
 }
-.karte__zime{font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--terakota)}
-.karte p{font-size:15.5px; color:var(--pelks)}
+@media(min-width:900px){
+  .karuselis{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr); gap:clamp(32px,4vw,72px)}
+}
+
+/* Kreisā puse: nosaukumu izvēle */
+.izvele{display:flex; flex-direction:column; gap:2px}
+.izvele__poga{
+  appearance:none; border:0; background:none; cursor:pointer;
+  font-family:var(--displejs); font-weight:600;
+  font-size:clamp(1.3rem,2.6vw,1.95rem); line-height:1.06;
+  letter-spacing:-.038em; color:var(--tinte);
+  text-align:left; padding:.42em 0;
+  opacity:.32; transition:opacity .2s ease, color .2s ease;
+  display:flex; align-items:center; gap:.5em;
+}
+.izvele__poga:hover{opacity:.6}
+.izvele__poga[aria-selected="true"]{opacity:1; color:var(--terakota)}
+.izvele__poga .punkts{
+  flex:none; width:7px; height:7px; border-radius:50%;
+  background:var(--terakota); opacity:0; transition:opacity .2s ease;
+}
+.izvele__poga[aria-selected="true"] .punkts{opacity:1}
+
+/* Labā puse: izvēlētais slaids */
+.slaids{display:none}
+.slaids[data-akt]{display:block}
+.slaids__virsma{
+  background:var(--bezs); border-radius:18px;
+  padding:clamp(24px,3vw,42px);
+  min-height:clamp(210px,22vw,280px);
+  display:flex; flex-direction:column; gap:14px;
+}
+.slaids__zime{
+  align-self:flex-start;
+  font-size:11px; font-weight:500; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--krems);
+  background:var(--terakota); border-radius:100px; padding:.4em 1em;
+}
+.slaids__apr{font-size:clamp(1rem,1.4vw,1.1rem); color:var(--tinte)}
+.slaids .vietturis{margin-top:auto; font-size:14px}
 
 /* Citāts viņas pašas vārdiem */
 .citats{background:var(--terakota); color:var(--krems); padding-block:var(--sekcija)}
@@ -179,9 +217,9 @@ p{max-width:64ch}
 .parmani figure{position:relative}
 .parmani img{border-radius:14px}
 .parmani figcaption{
-  margin-top:.55em; font-family:var(--roka);
-  font-size:clamp(1.9rem,3.2vw,2.5rem); line-height:1.1;
-  color:var(--oranzs);
+  margin-top:.7em; font-family:var(--roka);
+  font-weight:300; font-size:clamp(1.4rem,2.3vw,1.85rem); line-height:1.5;
+  color:var(--oranzs); white-space:nowrap;
 }
 .parmani p{color:var(--pelks)}
 .parmani p + p{margin-top:.9em}
@@ -268,7 +306,7 @@ p{max-width:64ch}
   <section class="hero">
     <div class="hero__forma" aria-hidden="true"></div>
     <div class="ietvars">
-      <p class="acuzime">Psiholoģe · Mg. Psych. · Rīga</p>
+      <p class="acuzime">Psiholoģe · Rīga</p>
 
       <h1>Man ir svarīgas Tavas uzvaras</h1>
 
@@ -338,34 +376,55 @@ p{max-width:64ch}
       <p class="acuzime">Pakalpojumi</p>
       <h2 style="margin-top:.35em">Kā varam strādāt</h2>
 
-      <div class="kartis">
-        <article class="karte">
-          <p class="karte__zime">Divatā</p>
-          <h3>Individuālās konsultācijas</h3>
-          <p>Saruna par to, kas Tev šobrīd ir svarīgākais. Cik reižu būs vajadzīgs, izlem Tu pats.</p>
-          <p class="vietturis">Šeit var ielikt norises veidu, ilgumu un cenu.</p>
-        </article>
+      <div class="karuselis">
+        <div class="izvele" role="tablist" aria-label="Pakalpojumi">
+          <button class="izvele__poga" role="tab" aria-selected="true" aria-controls="s1" id="t1">
+            <span class="punkts" aria-hidden="true"></span>Individuālās konsultācijas
+          </button>
+          <button class="izvele__poga" role="tab" aria-selected="false" aria-controls="s2" id="t2">
+            <span class="punkts" aria-hidden="true"></span>Lekcijas un semināri
+          </button>
+          <button class="izvele__poga" role="tab" aria-selected="false" aria-controls="s3" id="t3">
+            <span class="punkts" aria-hidden="true"></span>Prāta izaicinājums
+          </button>
+          <button class="izvele__poga" role="tab" aria-selected="false" aria-controls="s4" id="t4">
+            <span class="punkts" aria-hidden="true"></span>Dienas retrīts
+          </button>
+        </div>
 
-        <article class="karte">
-          <p class="karte__zime">Grupai</p>
-          <h3>Lekcijas un semināri</h3>
-          <p>Psiholoģijas tēmas skolām, komandām un organizācijām saprotamā valodā.</p>
-          <p class="vietturis">Šeit var ielikt tēmu sarakstu un nosacījumus.</p>
-        </article>
+        <div>
+          <div class="slaids" id="s1" role="tabpanel" aria-labelledby="t1" data-akt>
+            <div class="slaids__virsma">
+              <span class="slaids__zime">Divatā</span>
+              <p class="slaids__apr">Saruna par to, kas Tev šobrīd ir svarīgākais. Cik reižu būs vajadzīgs, izlem Tu pats.</p>
+              <p class="vietturis">Šeit var ielikt norises veidu, ilgumu un cenu.</p>
+            </div>
+          </div>
 
-        <article class="karte">
-          <p class="karte__zime">21 diena</p>
-          <h3>Prāta izaicinājums</h3>
-          <p>Grupa, kurā kopā stiprinām apzinātību, samazinām ekrāna laiku un veicinām prieku un motivāciju. Vietu skaits ierobežots, lai grupa paliktu neliela.</p>
-          <p class="vietturis">Šeit var ielikt nākamās grupas datumus un pieteikšanos.</p>
-        </article>
+          <div class="slaids" id="s2" role="tabpanel" aria-labelledby="t2">
+            <div class="slaids__virsma">
+              <span class="slaids__zime">Grupai</span>
+              <p class="slaids__apr">Psiholoģijas tēmas skolām, komandām un organizācijām saprotamā valodā, bez liekas teorijas.</p>
+              <p class="vietturis">Šeit var ielikt tēmu sarakstu un nosacījumus.</p>
+            </div>
+          </div>
 
-        <article class="karte">
-          <p class="karte__zime">Viena diena</p>
-          <h3>Dienas retrīts</h3>
-          <p>Meditācija, kustība, sevis izpēte drošā vidē un dalīšanās. Kopā ar fizioterapeitu, ar iespēju aprunāties individuāli pēc pasākuma.</p>
-          <p class="vietturis">Šeit var ielikt nākamā retrīta datumu un vietu.</p>
-        </article>
+          <div class="slaids" id="s3" role="tabpanel" aria-labelledby="t3">
+            <div class="slaids__virsma">
+              <span class="slaids__zime">21 diena</span>
+              <p class="slaids__apr">Grupa, kurā kopā stiprinām apzinātību, samazinām ekrāna laiku un veicinām prieku un motivāciju. Vietu skaits ierobežots, lai grupa paliktu neliela.</p>
+              <p class="vietturis">Šeit var ielikt nākamās grupas datumus un pieteikšanos.</p>
+            </div>
+          </div>
+
+          <div class="slaids" id="s4" role="tabpanel" aria-labelledby="t4">
+            <div class="slaids__virsma">
+              <span class="slaids__zime">Viena diena</span>
+              <p class="slaids__apr">Meditācija, kustība, sevis izpēte drošā vidē un dalīšanās. Kopā ar fizioterapeitu, ar iespēju aprunāties individuāli pēc pasākuma.</p>
+              <p class="vietturis">Šeit var ielikt nākamā retrīta datumu un vietu.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -428,6 +487,19 @@ p{max-width:64ch}
 </footer>
 
 <script>
+  // Pakalpojumu karuselis. Bez animācijas, slaidi mainās uzreiz.
+  (function(){
+    var pogas = document.querySelectorAll('.izvele__poga');
+    pogas.forEach(function(p){
+      p.addEventListener('click', function(){
+        pogas.forEach(function(c){ c.setAttribute('aria-selected','false'); });
+        document.querySelectorAll('.slaids').forEach(function(s){ s.removeAttribute('data-akt'); });
+        p.setAttribute('aria-selected','true');
+        document.getElementById(p.getAttribute('aria-controls')).setAttribute('data-akt','');
+      });
+    });
+  })();
+
   // Galvenei parādās līnija, tiklīdz lapa ir ritināta
   (function(){
     var g = document.querySelector('.galvene');
