@@ -62,8 +62,7 @@ p{max-width:64ch}
 
 /* Vietturis satura vietām, kuras vēl jāaizpilda */
 .vietturis{
-  border-left:2px solid var(--salvija); padding-left:.9em;
-  color:var(--pelks); font-size:.95em;
+  color:var(--tinte); opacity:.4; font-size:.95em;
 }
 
 .poga{
@@ -108,7 +107,6 @@ p{max-width:64ch}
   line-height:.98; letter-spacing:-.045em;
   color:var(--terakota); margin:.3em 0 0; max-width:13ch;
 }
-.hero h1 em{font-style:normal; color:var(--oranzs)}
 .hero__citats{
   margin-top:1.4em; max-width:46ch;
   font-size:clamp(1rem,1.5vw,1.14rem); color:var(--pelks);
@@ -124,20 +122,31 @@ p{max-width:64ch}
 .temas{background:var(--bezs); padding-block:var(--sekcija)}
 .temas__galva{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:clamp(26px,3.5vw,44px)}
 .temas__galva p{max-width:36ch; color:var(--pelks); font-size:15.5px}
-.saraksts{border-top:1px solid var(--lin)}
-.rinda{
-  display:flex; align-items:baseline; justify-content:space-between; gap:20px;
-  padding:clamp(13px,1.9vw,20px) 0; border-bottom:1px solid var(--lin);
+/* Tēmu režģis: veidots pēc Katrīnas Instagram plūsmas, 4:5 flīzes */
+.regis{display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,1.2vw,16px)}
+@media(min-width:820px){ .regis{grid-template-columns:repeat(3,1fr)} }
+
+.flize{
+  min-height:clamp(190px,19vw,240px); border-radius:12px;
+  padding:clamp(18px,1.8vw,26px);
+  display:flex; flex-direction:column; justify-content:space-between; gap:18px;
+  background:var(--krems); color:var(--terakota);
+  transition:transform .2s cubic-bezier(.2,.7,.3,1);
 }
-.rinda__nos{
+.flize:hover{transform:translateY(-4px)}
+.flize__nos{
   font-family:var(--displejs); font-weight:600;
-  font-size:clamp(1.45rem,4.2vw,2.9rem); line-height:1.06;
-  letter-spacing:-.038em; color:var(--terakota);
-  transition:color .16s ease;
+  font-size:clamp(1.3rem,2.9vw,2.15rem); line-height:1;
+  letter-spacing:-.042em; text-wrap:balance;
 }
-.rinda:hover .rinda__nos{color:var(--oranzs)}
-.rinda__pal{font-size:14.5px; color:var(--pelks); text-align:right; flex:none; max-width:26ch; display:none}
-@media(min-width:760px){ .rinda__pal{display:block} }
+.flize__pal{
+  font-size:14px; line-height:1.45; color:var(--pelks);
+  max-width:26ch;
+}
+.flize--terakota{background:var(--terakota); color:var(--krems)}
+.flize--terakota .flize__pal{color:color-mix(in srgb, var(--krems) 72%, var(--terakota))}
+.flize--salvija{background:var(--salvija); color:var(--tinte)}
+.flize--salvija .flize__pal{color:#5C6B47}
 
 /* Pakalpojumi */
 .sekcija{padding-block:var(--sekcija)}
@@ -260,7 +269,7 @@ p{max-width:64ch}
     <div class="ietvars">
       <p class="acuzime">Psiholoģe · Mg. Psych. · Rīga</p>
 
-      <h1>Man ir svarīgas <em>Tavas uzvaras</em></h1>
+      <h1>Man ir svarīgas Tavas uzvaras</h1>
 
       <p class="hero__citats">
         Reizēm tās ir trīs, reizēm trīsdesmit konsultācijas. Reizēm mēneši un reizēm gadi.
@@ -294,31 +303,31 @@ p{max-width:64ch}
         <p>Nav noslēpums, ka arī stiprākie var izdegt. Un nav jāgaida, līdz kļūst pavisam grūti.</p>
       </div>
 
-      <div class="saraksts">
-        <div class="rinda">
-          <span class="rinda__nos">Pašvērtējums</span>
-          <span class="rinda__pal">Iekšējais kritiķis un veselā pieaugušā balss</span>
-        </div>
-        <div class="rinda">
-          <span class="rinda__nos">Izdegšana</span>
-          <span class="rinda__pal">Kad atpūta vairs nelīdz un bilde neliekas kopā</span>
-        </div>
-        <div class="rinda">
-          <span class="rinda__nos">Piesaistes stili</span>
-          <span class="rinda__pal">Trauksmainā, izvairīgā un drošā piesaiste</span>
-        </div>
-        <div class="rinda">
-          <span class="rinda__nos">Trauksme un stress</span>
-          <span class="rinda__pal">Elpošanas un relaksācijas tehnikas, kas nomierina nervu sistēmu</span>
-        </div>
-        <div class="rinda">
-          <span class="rinda__nos">Attiecības</span>
-          <span class="rinda__pal">Sarkanie karogi un savu vajadzību izteikšana</span>
-        </div>
-        <div class="rinda">
-          <span class="rinda__nos">Bailes</span>
-          <span class="rinda__pal">Atbalsts cilvēkos un iekšējais spēks izturēt pirmo reizi</span>
-        </div>
+      <div class="regis">
+        <article class="flize flize--terakota">
+          <p class="flize__nos">Pašvērtējums</p>
+          <p class="flize__pal">Iekšējais kritiķis un veselā pieaugušā balss</p>
+        </article>
+        <article class="flize">
+          <p class="flize__nos">Izdegšana</p>
+          <p class="flize__pal">Kad atpūta vairs nelīdz un bilde neliekas kopā</p>
+        </article>
+        <article class="flize flize--salvija">
+          <p class="flize__nos">Piesaistes stili</p>
+          <p class="flize__pal">Trauksmainā, izvairīgā un drošā piesaiste</p>
+        </article>
+        <article class="flize">
+          <p class="flize__nos">Trauksme un stress</p>
+          <p class="flize__pal">Elpošanas un relaksācijas tehnikas, kas nomierina nervu sistēmu</p>
+        </article>
+        <article class="flize flize--terakota">
+          <p class="flize__nos">Attiecības</p>
+          <p class="flize__pal">Sarkanie karogi un savu vajadzību izteikšana</p>
+        </article>
+        <article class="flize">
+          <p class="flize__nos">Bailes</p>
+          <p class="flize__pal">Atbalsts cilvēkos un iekšējais spēks izturēt pirmo reizi</p>
+        </article>
       </div>
     </div>
   </section>
@@ -333,28 +342,28 @@ p{max-width:64ch}
           <p class="karte__zime">Divatā</p>
           <h3>Individuālās konsultācijas</h3>
           <p>Saruna par to, kas Tev šobrīd ir svarīgākais. Cik reižu būs vajadzīgs, izlem Tu pats.</p>
-          <p class="vietturis">Šeit norises veids, ilgums un cena.</p>
+          <p class="vietturis">Šeit var ielikt norises veidu, ilgumu un cenu.</p>
         </article>
 
         <article class="karte">
           <p class="karte__zime">Grupai</p>
           <h3>Lekcijas un semināri</h3>
           <p>Psiholoģijas tēmas skolām, komandām un organizācijām saprotamā valodā.</p>
-          <p class="vietturis">Šeit tēmu saraksts un nosacījumi.</p>
+          <p class="vietturis">Šeit var ielikt tēmu sarakstu un nosacījumus.</p>
         </article>
 
         <article class="karte">
           <p class="karte__zime">21 diena</p>
           <h3>Prāta izaicinājums</h3>
           <p>Grupa, kurā kopā stiprinām apzinātību, samazinām ekrāna laiku un veicinām prieku un motivāciju. Vietu skaits ierobežots, lai grupa paliktu neliela.</p>
-          <p class="vietturis">Šeit nākamās grupas datumi un pieteikšanās.</p>
+          <p class="vietturis">Šeit var ielikt nākamās grupas datumus un pieteikšanos.</p>
         </article>
 
         <article class="karte">
           <p class="karte__zime">Viena diena</p>
           <h3>Dienas retrīts</h3>
           <p>Meditācija, kustība, sevis izpēte drošā vidē un dalīšanās. Kopā ar fizioterapeitu, ar iespēju aprunāties individuāli pēc pasākuma.</p>
-          <p class="vietturis">Šeit nākamā retrīta datums un vieta.</p>
+          <p class="vietturis">Šeit var ielikt nākamā retrīta datumu un vietu.</p>
         </article>
       </div>
     </div>
@@ -378,7 +387,7 @@ p{max-width:64ch}
         <p class="acuzime">Par mani</p>
         <h2 style="margin:.35em 0 .5em">Atbalstīšu Tevi ceļā uz veselīgu pašvērtējumu</h2>
         <p><strong>Psiholoģiju studēju Latvijas Universitātē, maģistra grādu klīniskajā psiholoģijā ieguvu Bonnas universitātē.</strong> Strādāju Rīgā: individuāli, kā arī vadu lekcijas, seminārus un grupas.</p>
-        <p class="vietturis">Šeit stāsts par to, kāpēc psiholoģija, kā notiek darbs un kas ir svarīgi darbā ar cilvēkiem. Šo tekstu vislabāk uzrakstīt pašai.</p>
+        <p class="vietturis">Šo var mainīt: stāsts par to, kāpēc psiholoģija, kā notiek darbs un kas ir svarīgi darbā ar cilvēkiem.</p>
 
         <div class="kvalifikacija">
           <h3>Izglītība un apmācības</h3>
@@ -405,7 +414,7 @@ p{max-width:64ch}
         Rakstīt
         <svg class="bulta" width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <p class="vietturis pieteikties__vietturis">Šeit saziņas veids: e-pasts, tālrunis vai pieteikšanās forma.</p>
+      <p class="vietturis pieteikties__vietturis">Šeit var ielikt saziņas veidu: e-pastu, tālruni vai pieteikšanās formu.</p>
     </div>
   </section>
 
